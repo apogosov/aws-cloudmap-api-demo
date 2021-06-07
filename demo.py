@@ -37,8 +37,9 @@ response = client.discover_instances(
     OptionalParameters=purpose,
     HealthStatus='HEALTHY_OR_ELSE_ALL'
 )
-print('All Response ---------------------------------------------------')
-pp.pprint(response, )
+print('---------- Response -----------------------------------------------------')
+pp.pprint(response)
+print('---------- Instance configuration K/V -----------------------------------')
 for instance in response['Instances']:
     pp.pprint(instance['Attributes'])
 
