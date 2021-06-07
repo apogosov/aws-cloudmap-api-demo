@@ -34,7 +34,7 @@ response = client.discover_instances(
     MaxResults=123,
     QueryParameters=product,
     OptionalParameters=purpose,
-    HealthStatus='HEALTHY' | 'UNHEALTHY' | 'ALL' | 'HEALTHY_OR_ELSE_ALL'
+    HealthStatus= 'HEALTHY_OR_ELSE_ALL'
 )
 pp.pprint(response)
 
