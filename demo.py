@@ -57,4 +57,25 @@ print_instances(response)
 input()
 clear()
 
+query_parameters = {
+    'product': my_service,
+    'kind': 'dynamodb'
+}
+optional_parameters = {'purpose': 'main-table'}
+
+input(f'- Discovering in namespace [{my_namespace}] service [{my_service}] with query parameters {query_parameters} and optional parameters {optional_parameters}')
+
+response = client.discover_instances(
+    NamespaceName=my_namespace,
+    ServiceName=my_service,
+    MaxResults=123,
+    QueryParameters=query_parameters,
+    OptionalParameters=optional_parameters,
+    HealthStatus='HEALTHY_OR_ELSE_ALL'
+)
+print_instances(response)
+
+input()
+clear()
+
 input("Done...")
