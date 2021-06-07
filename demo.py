@@ -20,11 +20,6 @@ my_config = Config(
 
 my_namespace = 'productbased.service.consul'
 my_service = 'configuration-storage'
-product = {
-    'product': my_service,
-    'kind': 'dynamodb'
-}
-purpose = {'purpose': 'main-table'}
 
 client = boto3.client('servicediscovery', config=my_config)
 clear()
@@ -35,14 +30,20 @@ pp.pprint(response)
 input()
 clear()
 
-input(f'---------- Discover in {my_namespace} service {my_service} ----------')
+query_parameters = {
+    'product': my_service,
+    'kind': 'dynamodb'
+}
+optional_parameters = {'purpose': 'main-table'}
+
+input(f'---------- Discover in {my_namespace} service {my_service} with query {query_parameters} ----------')
 
 response = client.discover_instances(
     NamespaceName=my_namespace,
     ServiceName=my_service,
     MaxResults=123,
-    QueryParameters=product,
-    OptionalParameters=purpose,
+    QueryParameters=query_parameters,
+    # OptionalParameters=optional_parameters,
     HealthStatus='HEALTHY_OR_ELSE_ALL'
 )
 print('---------- Response -----------------------------------------------------')
