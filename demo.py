@@ -24,8 +24,10 @@ client = boto3.client('servicediscovery', config=my_config)
 clear()
 input("---------- List All Namespaces ----------")
 response = client.list_namespaces()
-print('Response ---------------------------------------------------')
+print('---------- Response -----------------------------------------------------')
 pp.pprint(response)
+input()
+clear()
 
 input(f'---------- Discover in {my_namespace} service {my_service} ----------')
 
@@ -42,5 +44,7 @@ pp.pprint(response)
 print('---------- Instance configuration K/V -----------------------------------')
 for instance in response['Instances']:
     pp.pprint(instance['Attributes'])
+input()
+clear()
 
-input("Pause...")
+input("Done...")
