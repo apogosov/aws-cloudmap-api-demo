@@ -7,6 +7,12 @@ import os
 def clear(): os.system('clear')
 
 
+def print_instances(resp):
+    for instance in resp['Instances']:
+        pp.pprint(instance['InstanceId'])
+        pp.pprint(instance)
+
+
 pp = pprint.PrettyPrinter(indent=4, width=200)
 
 my_config = Config(
@@ -23,9 +29,9 @@ my_service = 'configuration-storage'
 
 client = boto3.client('servicediscovery', config=my_config)
 clear()
-input("---------- List All Namespaces ----------")
+input("- List All Namespaces")
 response = client.list_namespaces()
-print('---------- Response -----------------------------------------------------')
+print('- Full response')
 pp.pprint(response)
 input()
 clear()
@@ -36,7 +42,7 @@ query_parameters = {
 }
 optional_parameters = {'purpose': 'main-table'}
 
-input(f'---------- Discover in {my_namespace} service {my_service} with query {query_parameters} ----------')
+input(f'- Discovering in namespace [{my_namespace}] service [{my_service}] with query parameters {query_parameters}')
 
 response = client.discover_instances(
     NamespaceName=my_namespace,
@@ -46,11 +52,8 @@ response = client.discover_instances(
     # OptionalParameters=optional_parameters,
     HealthStatus='HEALTHY_OR_ELSE_ALL'
 )
-print('---------- Response -----------------------------------------------------')
-pp.pprint(response['Instances'])
-print('---------- Instance configuration K/V -----------------------------------')
-for instance in response['Instances']:
-    pp.pprint(instance['Attributes'])
+print_instances(response)
+
 input()
 clear()
 
