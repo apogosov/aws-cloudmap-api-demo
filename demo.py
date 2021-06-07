@@ -19,7 +19,7 @@ my_service = 'configuration-storage'
 product = {'product': my_service}
 purpose = {'purpose': 'main-table'}
 
-pp = pprint.PrettyPrinter(indent=4)
+pp = pprint.PrettyPrinter(indent=4, width=200)
 client = boto3.client('servicediscovery', config=my_config)
 clear()
 input("---------- List All Namespaces ----------")
@@ -38,7 +38,7 @@ response = client.discover_instances(
     HealthStatus='HEALTHY_OR_ELSE_ALL'
 )
 print('All Response ---------------------------------------------------')
-pp.pprint(response)
+pp.pprint(response, )
 for instance in response['Instances']:
     pp.pprint(instance['Attributes'])
 
