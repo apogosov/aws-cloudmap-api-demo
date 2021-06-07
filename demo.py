@@ -3,7 +3,11 @@ import boto3
 from botocore.config import Config
 import os
 
-clear = lambda: os.system('clear')
+
+def clear(): os.system('clear')
+
+
+pp = pprint.PrettyPrinter(indent=4, width=200)
 
 my_config = Config(
     region_name='us-east-1',
@@ -16,10 +20,12 @@ my_config = Config(
 
 my_namespace = 'productbased.service.consul'
 my_service = 'configuration-storage'
-product = {'product': my_service}
+product = {
+    'product': my_service,
+    'kind': 'dynamodb'
+}
 purpose = {'purpose': 'main-table'}
 
-pp = pprint.PrettyPrinter(indent=4, width=200)
 client = boto3.client('servicediscovery', config=my_config)
 clear()
 input("---------- List All Namespaces ----------")
@@ -40,7 +46,7 @@ response = client.discover_instances(
     HealthStatus='HEALTHY_OR_ELSE_ALL'
 )
 print('---------- Response -----------------------------------------------------')
-pp.pprint(response)
+pp.pprint(response['Instances'])
 print('---------- Instance configuration K/V -----------------------------------')
 for instance in response['Instances']:
     pp.pprint(instance['Attributes'])
