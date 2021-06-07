@@ -22,8 +22,9 @@ purpose = {'purpose': 'main-table'}
 pp = pprint.PrettyPrinter(indent=4)
 client = boto3.client('servicediscovery', config=my_config)
 clear()
-input("---------- List Namespaces ----------")
+input("---------- List All Namespaces ----------")
 response = client.list_namespaces()
+print('Response ---------------------------------------------------')
 pp.pprint(response)
 
 input(f'---------- Discover in {my_namespace} service {my_service} ----------')
@@ -34,8 +35,11 @@ response = client.discover_instances(
     MaxResults=123,
     QueryParameters=product,
     OptionalParameters=purpose,
-    HealthStatus= 'HEALTHY_OR_ELSE_ALL'
+    HealthStatus='HEALTHY_OR_ELSE_ALL'
 )
+print('All Response ---------------------------------------------------')
 pp.pprint(response)
+for instance in response['Instances']:
+    pp.pprint(instance['Attributes'])
 
 input("Pause...")
