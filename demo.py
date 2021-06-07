@@ -131,7 +131,7 @@ response = client.discover_instances(
 )
 print_instances(response)
 
-pp.pprint(f'''
+print(f'''
 - URL - {response['Instances'][0]['Attributes']['url']}
 ''')
 input()
