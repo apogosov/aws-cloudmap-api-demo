@@ -42,7 +42,11 @@ query_parameters = {
 }
 optional_parameters = {'purpose': 'main-table'}
 
-input(f'- Discovering in namespace [{my_namespace}] service [{my_service}] \nwith query parameters {query_parameters}')
+input(f'''
+- Find all DynamoDB
+  Discovering in namespace [{my_namespace}] service [{my_service}] 
+  Query parameters {query_parameters}
+''')
 
 response = client.discover_instances(
     NamespaceName=my_namespace,
@@ -63,7 +67,12 @@ query_parameters = {
 }
 optional_parameters = {'purpose': 'main-table'}
 
-input(f'- Discovering in namespace [{my_namespace}] service [{my_service}] \nwith query parameters {query_parameters} \nand optional parameters {optional_parameters}')
+input(f'''
+- Find specific DynamoDB by purpose
+  Discovering in namespace [{my_namespace}] service [{my_service}]
+  Query parameters {query_parameters}
+  Optional parameters {optional_parameters}
+''')
 
 response = client.discover_instances(
     NamespaceName=my_namespace,
@@ -82,7 +91,11 @@ query_parameters = {
 }
 optional_parameters = {'purpose': 'main-table'}
 
-input(f'- Discovering in namespace [{my_namespace}] service [{my_service}] \nwith query parameters {query_parameters}')
+input(f'''
+- Find all SNS by kind
+  Discovering in namespace [{my_namespace}] service [{my_service}]
+  Query parameters {query_parameters}
+''')
 
 response = client.discover_instances(
     NamespaceName=my_namespace,
@@ -94,6 +107,33 @@ response = client.discover_instances(
 )
 print_instances(response)
 
+input()
+clear()
+query_parameters = {
+    'product': my_service,
+    'kind': 'apigw'
+}
+optional_parameters = {'purpose': 'main-table'}
+
+input(f'''
+- Find main API GW url
+  Discovering in namespace [{my_namespace}] service [{my_service}]
+  Query parameters {query_parameters}
+''')
+
+response = client.discover_instances(
+    NamespaceName=my_namespace,
+    ServiceName=my_service,
+    MaxResults=123,
+    QueryParameters=query_parameters,
+    # OptionalParameters=optional_parameters,
+    HealthStatus='HEALTHY_OR_ELSE_ALL'
+)
+print_instances(response)
+
+pp.pprint(f'''
+- URL - {response['Instances'][0]['Attributes']['url']}
+''')
 input()
 clear()
 
