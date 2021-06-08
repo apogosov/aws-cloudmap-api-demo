@@ -161,5 +161,18 @@ print_instances(response)
 input()
 clear()
 
+input(f'''
+- Get service configuration-storage
+''')
+
+response = client.get_service(
+    Id='configuration-storage'
+)
+
+pp.pprint(response)
+
+input()
+clear()
+
 
 input("Done...")
