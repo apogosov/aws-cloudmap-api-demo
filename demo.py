@@ -166,7 +166,7 @@ input(f'''
 ''')
 
 response = client.get_service(
-    Id='configuration-storage'
+    Id='srv-pg7qyzli7fnzhnpp'
 )
 
 pp.pprint(response)
