@@ -137,4 +137,29 @@ print(f'''
 input()
 clear()
 
+query_parameters = {
+    'tenant': 'macu'
+}
+optional_parameters = {'purpose': 'main-table'}
+
+input(f'''
+- Find tenant macu
+  Discovering in namespace [{my_namespace}] service [{my_service}]
+  Query parameters {query_parameters}
+''')
+
+response = client.discover_instances(
+    NamespaceName=my_namespace,
+    ServiceName=my_service,
+    MaxResults=123,
+    QueryParameters=query_parameters,
+    # OptionalParameters=optional_parameters,
+    HealthStatus='HEALTHY_OR_ELSE_ALL'
+)
+print_instances(response)
+
+input()
+clear()
+
+
 input("Done...")
